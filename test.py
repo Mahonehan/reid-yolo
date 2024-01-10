@@ -3,7 +3,7 @@ import os
 import sys
 from os import mkdir
 from torch.backends import cudnn
-sys.path.append('.')
+sys.path.append('tools')
 from config import cfg
 from data import make_data_loader
 from engine.inference import inference

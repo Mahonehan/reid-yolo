@@ -28,7 +28,7 @@ def on_mouse(event, x, y, flags, param):
 
 
 if __name__ == '__main__':
-    videoCapture = cv2.VideoCapture(0)
+    videoCapture = cv2.VideoCapture("street-part.mp4")
     # Read image
     success, frame = videoCapture.read()
     while success:

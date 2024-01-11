@@ -68,7 +68,7 @@ _C.TEST.IMS_PER_BATCH = 128
 # If test with re-ranking, options: 'yes','no'
 _C.TEST.RE_RANKING = 'no'
 # Path to trained model
-_C.TEST.WEIGHT = "F:/yolov5_reid/person_search/weights/ReID_resnet50_ibn_a.pth"
+_C.TEST.WEIGHT = "E:/_reid/reid-yolo/person_search/weights/ReID_resnet50_ibn_a.pth"
 # Which feature of BNNeck to be used for test, before or after BNNneck, options: 'before' or 'after'
 _C.TEST.NECK_FEAT = 'after'
 # Whether feature is nomalized before test, if yes, it is equivalent to cosine distance
@@ -78,4 +78,4 @@ _C.TEST.FEAT_NORM = 'yes'
 # Misc options
 # ---------------------------------------------------------------------------- #
 # Path to checkpoint and saved log of trained model
-_C.OUTPUT_DIR = "F:/yolov5_reid/person_search/output"
+_C.OUTPUT_DIR = "E:/_reid/reid-yolo/person_search/output"

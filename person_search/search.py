@@ -147,7 +147,7 @@ def detect(source='0',
                         h = ymax - ymin
                         # 如果检测到的行人太小了，感觉意义也不大
                         # 这里需要根据实际情况稍微设置下
-                        if w * h > 500:
+                        if w * h > 50:
                             gallery_loc.append((xmin, ymin, xmax, ymax))
                             crop_img = im0[ymin:ymax,
                                        xmin:xmax]  # HWC (602, 233, 3)  这个im0是读取的帧，获取该帧中框的位置 im0= <class 'numpy.ndarray'>
@@ -162,7 +162,7 @@ def detect(source='0',
                     print("The gallery feature is normalized")
                     gallery_feats = torch.nn.functional.normalize(gallery_feats, dim=1, p=2)  # 计算出查询图片的特征向量
 
-                    m, n = query_feats.shape[0], gallery_feats.shape[0]
+                    m, n = query_feats.shape[0], gallery_feats.shape[0]  # m:query个数, n:待匹配的图像数
                     distmat = torch.pow(query_feats, 2).sum(dim=1, keepdim=True).expand(m, n) + \
                               torch.pow(gallery_feats, 2).sum(dim=1, keepdim=True).expand(n, m).t()
 
@@ -198,8 +198,8 @@ def detect(source='0',
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='person search')
-    parser.add_argument('--weights', nargs='+', type=str, default='yolov5s.pt', help='model path or triton URL')
-    parser.add_argument('--source', type=str, default=0, help='file/dir/URL/glob/screen/0(webcam)')
+    parser.add_argument('--weights', nargs='+', type=str, default='weights/yolov5s.pt', help='model path or triton URL')
+    parser.add_argument('--source', type=str, default='street-part.mp4', help='file/dir/URL/glob/screen/0(webcam)')
     parser.add_argument('--data', type=str, default='data/coco128.yaml', help='(optional) dataset.yaml path')
     parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640, 640],
                         help='inference size h,w')
@@ -215,8 +215,10 @@ if __name__ == "__main__":
     parser.add_argument('--save_res', action='store_true', default=True, help='save detection results')
     opt = parser.parse_args()
     logger.info(opt)
-    weights, source, data, imgsz, conf_thres, iou_thres, max_det, classes, agnostic_nms, half, dnn, vid_stride, dist_thres, save_res= opt.weights, opt.source, opt.data, \
-                                                                                                                                     opt.imgsz, opt.conf_thres, opt.iou_thres, opt.max_det, opt.classes, opt.agnostic_nms, opt.half, opt.dnn, opt.vid_stride, opt.dist_thres, opt.save_res
+    weights, source, data, imgsz, conf_thres, iou_thres, max_det, \
+        classes, agnostic_nms, half, dnn, vid_stride, dist_thres, save_res = opt.weights, opt.source, opt.data, \
+        opt.imgsz, opt.conf_thres, opt.iou_thres, opt.max_det, opt.classes, opt.agnostic_nms, opt.half, opt.dnn, \
+        opt.vid_stride, opt.dist_thres, opt.save_res
 
     with torch.no_grad():
         detect(source, imgsz, weights, dnn, data, half, conf_thres=conf_thres, iou_thres=iou_thres, classes=classes,

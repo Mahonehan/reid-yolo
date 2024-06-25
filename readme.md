@@ -5,7 +5,7 @@ git clone https://github.com/YINYIPENG-EN/yolov5_reid.git
 # 训练
 
 ```shell
-python tools/train.py --config_file configs/softmax_triplet.yml MODEL.DEVICE_ID "('0')" DATASETS.NAMES "('market1501')" DATASETS.ROOT_DIR "(r'./data')
+python train.py --config_file configs/softmax_triplet.yml MODEL.DEVICE_ID "('0')" DATASETS.NAMES "('market1501')" DATASETS.ROOT_DIR "(r'./data')
 
 ```
 
